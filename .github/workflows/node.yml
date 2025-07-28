@@ -37,12 +37,6 @@ jobs:
             dist
             package.lock.json
             package.json
-      
-      - name: Publish Library to NPM (dry run)
-        # Only run if the commit is tagged with v<version>
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}          
-        run: npm set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN && npm publish --dry-run
 
   # job depends on the build job
   release:
@@ -65,7 +59,7 @@ jobs:
         with:
           node-version: 20
       - name: Install dependencies
-        run: npm install -g semantic-release @semantic-release/git @semantic-release/changelog @semantic-release/exec @semantic-release/npm
+        run: npm install -g semantic-release @semantic-release/git @semantic-release/changelog @semantic-release/exec
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -73,6 +67,6 @@ jobs:
           path: .
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_CI }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+
