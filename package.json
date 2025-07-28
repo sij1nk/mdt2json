@@ -17,7 +17,7 @@
     "mdt2json": "./dist/cli/mdt2json.cjs"
   },
   "files": [
-    "dist"
+    "dist/"
   ],
   "readme": "README.md",
   "keywords": [
